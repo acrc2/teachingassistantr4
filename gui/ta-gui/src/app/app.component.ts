@@ -13,10 +13,17 @@ export class AppComponent {
    aluno: Aluno = {nome: "", cpf: "", email: ""};
    alunoService = new AlunoService();
    alunos: Aluno[] = [];
+   cpfduplicado: boolean = false;
 
    gravar(a: Aluno): void {
-     this.alunoService.gravar(a);
-     this.alunos.push(a);
-     this.aluno = {nome: "", cpf: "", email: ""};
+     if (this.alunoService.gravar(a)) {
+       this.alunos.push(a);
+       this.aluno = {nome: "", cpf: "", email: ""};
+     } else {
+       this.cpfduplicado = true;
+     }
+  }
+  onMove(): void {
+      this.cpfduplicado = false;
   }
 }
