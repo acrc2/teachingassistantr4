@@ -6,7 +6,7 @@ import { Aluno } from './aluno';
 
 @Injectable()
 export class AlunoService {
-
+  
   private headers = new Headers({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';
 
@@ -16,9 +16,19 @@ export class AlunoService {
     return this.http.post(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})
            .toPromise()
            .then(res => {
-              if (res.json().success) {return aluno;} else {return null;}
+              if (res.json().success) {
+                return aluno;} else {return null;}
            })
            .catch(this.tratarErro);
+  }
+
+  deletar(aluno: Aluno): Promise<Aluno> {
+    return this.http.put(this.taURL + "/alunoDelete",JSON.stringify(aluno), {headers: this.headers})
+    .toPromise()
+    .then(res => {
+       if (res.json().success) {return aluno;} else {return null;}
+    })
+    .catch(this.tratarErro);
   }
 
   atualizar(aluno: Aluno): Promise<Aluno> {

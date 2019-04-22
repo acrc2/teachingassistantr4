@@ -23,6 +23,16 @@ app.get('/alunos', function (req, res) {
   res.send(JSON.stringify(cadastro.getAlunos()));
 })
 
+app.put('/alunoDelete', function (req: express.Request, res: express.Response) {
+  var aluno: Aluno = <Aluno> req.body;
+  aluno = cadastro.deletar(aluno);
+  if (aluno) {
+    res.send({"success": "O aluno foi deletado com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser deletado"});
+  }
+})
+
 app.post('/aluno', function (req: express.Request, res: express.Response) {
   var aluno: Aluno = <Aluno> req.body; //verificar se é mesmo Aluno!
   aluno = cadastro.criar(aluno);

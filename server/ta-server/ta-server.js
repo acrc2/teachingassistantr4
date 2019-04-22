@@ -1,8 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const bodyParser = require("body-parser");
-const cadastrodealunos_1 = require("./cadastrodealunos");
+exports.__esModule = true;
+var express = require("express");
+var bodyParser = require("body-parser");
+var cadastrodealunos_1 = require("./cadastrodealunos");
 var app = express();
 exports.app = app;
 var cadastro = new cadastrodealunos_1.CadastroDeAlunos();
@@ -17,6 +17,16 @@ app.use(bodyParser.json());
 app.get('/alunos', function (req, res) {
     console.log('GET /alunos: ' + req);
     res.send(JSON.stringify(cadastro.getAlunos()));
+});
+app.put('/alunoDelete', function (req, res) {
+    var aluno = req.body;
+    aluno = cadastro.deletar(aluno);
+    if (aluno) {
+        res.send({ "success": "O aluno foi deletado com sucesso" });
+    }
+    else {
+        res.send({ "failure": "O aluno não pode ser deletado" });
+    }
 });
 app.post('/aluno', function (req, res) {
     var aluno = req.body; //verificar se é mesmo Aluno!
@@ -41,4 +51,3 @@ app.put('/aluno', function (req, res) {
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
 });
-//# sourceMappingURL=ta-server.js.map
