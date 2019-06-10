@@ -14,7 +14,7 @@ export let config: Config = {
     frameworkPath: require.resolve('protractor-cucumber-framework'),
 
     specs: [
-        '../../features/deletes.feature'
+        '../../features/deleteService.feature'
     ],
 
     onPrepare: () => {
@@ -27,6 +27,6 @@ export let config: Config = {
         compiler: "ts:ts-node/register",
         strict: true,
         format: ['pretty'],
-        require: ['../../stepdefinitions/deletes.ts'],
+        require: ['../../stepdefinitions/deleteService.ts'],
     }
 };

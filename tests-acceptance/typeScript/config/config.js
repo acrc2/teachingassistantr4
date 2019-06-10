@@ -10,7 +10,7 @@ exports.config = {
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
     specs: [
-        '../../features/deletes.feature'
+        '../../features/deleteService.feature'
     ],
     onPrepare: () => {
         protractor_1.browser.ignoreSynchronization = true;
@@ -20,6 +20,6 @@ exports.config = {
         compiler: "ts:ts-node/register",
         strict: true,
         format: ['pretty'],
-        require: ['../../stepdefinitions/deletes.ts'],
+        require: ['../../stepdefinitions/deleteService.ts'],
     }
 };

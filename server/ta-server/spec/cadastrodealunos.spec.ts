@@ -38,4 +38,27 @@ describe("O cadastro de alunos", () => {
     expect(cadastro.getAlunos().length).toBe(1);
   })
 
+ /* it("remove alunos corretamente", () => {
+    var aluno: Aluno = new Aluno();
+    aluno.nome = "Mariana";
+    aluno.cpf = "683";
+    cadastro.criar(aluno);
+
+    cadastro.deletar(aluno);
+
+    expect(cadastro.getAlunos().length).toBe(0);
+  })
+
+  it("remove apenas o cpf especificado", () => {
+    var aluno: Aluno = new Aluno();
+    aluno.nome = "Mariana";
+    aluno.cpf = "683";
+    cadastro.criar(aluno);
+
+    aluno.cpf="555"
+
+    cadastro.deletar(aluno);
+    expect(cadastro.getAlunos().length).toBe(1);
+  })*/
+
 })

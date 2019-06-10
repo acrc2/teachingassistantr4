@@ -5,12 +5,14 @@ export class CadastroDeAlunos {
 
   criar(aluno: Aluno): Aluno {
     var result = null;
-    if (this.cpfNaoCadastrado(aluno.cpf) && this.gitNaoCadastrado(aluno.git)) {
-      result = new Aluno();
-      result.copyFrom(aluno);
-      this.alunos.push(result);
-    }
-
+    
+    
+      if (this.cpfNaoCadastrado(aluno.cpf) && this.gitNaoCadastrado(aluno.git)) {
+        result = new Aluno();
+        result.copyFrom(aluno);
+        this.alunos.push(result);
+      }
+    
     return result;
   }
 

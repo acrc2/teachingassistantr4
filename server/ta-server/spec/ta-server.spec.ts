@@ -10,12 +10,48 @@ describe("O servidor", () => {
 
   afterAll(() => {server.closeServer()});
 
+  /*it("consegue remover alunos", () => {
+    return request.post(base_url + "aluno", {"json":{"nome": "Mari", "cpf" : "555","email":"","metas":{}, "github": "a"}}).then(body => {
+       expect(body).toEqual({success: "O aluno foi cadastrado com sucesso"});
+       return request.post(base_url + "aluno", {"json":{"nome": "Pedro", "cpf" : "965","email":"","metas":{}, github: "b"}}).then(body => {
+           expect(body).toEqual({success: "O aluno foi cadastrado com sucesso"});
+           return request.put(base_url + "alunoDelete", {"json":{"nome": "Mari", "cpf" : "555","email":"","metas":{}, "github": "a"}}).then(body => {
+               expect(body).not.toContain('{"nome":"Pedro","cpf":"965","email":"","metas":{}}');
+           });
+       });
+   });
+})*/
+
+  /*app.put('/alunoDelete', function (req, res) {
+    var aluno = req.body;
+    aluno = cadastro.deletar(aluno);
+    if (aluno) {
+        res.send({ "success": "O aluno foi deletado com sucesso" });
+    }
+    else {
+        res.send({ "failure": "O aluno não pode ser deletado" });
+    }
+});*/ 
   it("inicialmente retorna uma lista de alunos vazia", () => {
     return request.get(base_url + "alunos").then(body => expect(body).toBe("[]")).catch(e => expect(e).toEqual(null));
   })
 
+  it("não cadastra alunos com CPF duplicado", () => {
+    return request.post(base_url + "aluno", {"json":{"nome": "Mari", "cpf" : "965", "email":"mari@mari"}}).then(body => {
+         expect(body).toEqual({success: "O aluno foi cadastrado com sucesso"});
+         return request.post(base_url + "aluno", {"json":{"nome": "Pedro", "cpf" : "965","email":"pedro@pedro"}}).then(body => {
+             expect(body).toEqual({failure: "O aluno não pode ser cadastrado"});
+             return request.get(base_url + "alunos").then(body => {
+                 expect(body).toContain('{"nome":"Mari","cpf":"965","email":"mari@mari","metas":{}}');
+                 expect(body).not.toContain('{"nome":"Pedro","cpf":"965","email":"pedro@pedro","metas":{}}');
+             });
+         });
+     });
+  });
+
+
   it("só cadastra alunos", () => {
-    var options:any = {method: 'POST', uri: (base_url + "aluno"), body:{name: "Mari", cpf: "962"}, json: true};
+    var options:any = {method: 'POST', uri: (base_url + "aluno"), body:{name: "Marina", cpf: "962"}, json: true};
     return request(options).then(body =>
          expect(body).toEqual({failure: "O aluno não pode ser cadastrado"})
     ).catch(e =>
@@ -23,18 +59,6 @@ describe("O servidor", () => {
     )
   });
 
-
-  it("não cadastra alunos com CPF duplicado", () => {
-    return request.post(base_url + "aluno", {"json":{"nome": "Mari", "cpf" : "965"}}).then(body => {
-         expect(body).toEqual({success: "O aluno foi cadastrado com sucesso"});
-         return request.post(base_url + "aluno", {"json":{"nome": "Pedro", "cpf" : "965"}}).then(body => {
-             expect(body).toEqual({failure: "O aluno não pode ser cadastrado"});
-             return request.get(base_url + "alunos").then(body => {
-                 expect(body).toContain('{"nome":"Mari","cpf":"965","email":"","metas":{}}');
-                 expect(body).not.toContain('{"nome":"Pedro","cpf":"965","email":"","metas":{}}');
-             });
-         });
-     });
-  })
+  
 
 })

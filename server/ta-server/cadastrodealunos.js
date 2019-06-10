@@ -1,40 +1,41 @@
 "use strict";
-exports.__esModule = true;
-var aluno_1 = require("../../gui/ta-gui/src/app/aluno");
-var CadastroDeAlunos = /** @class */ (function () {
-    function CadastroDeAlunos() {
+Object.defineProperty(exports, "__esModule", { value: true });
+const aluno_1 = require("../../gui/ta-gui/src/app/aluno");
+class CadastroDeAlunos {
+    constructor() {
         this.alunos = [];
     }
-    CadastroDeAlunos.prototype.criar = function (aluno) {
+    criar(aluno) {
         var result = null;
-        if (this.cpfNaoCadastrado(aluno.cpf) && this.gitNaoCadastrado(aluno.git)) {
-            result = new aluno_1.Aluno();
-            result.copyFrom(aluno);
-            this.alunos.push(result);
-        }
+            if (this.cpfNaoCadastrado(aluno.cpf) && this.gitNaoCadastrado(aluno.git)) {
+                result = new aluno_1.Aluno();
+                result.copyFrom(aluno);
+                this.alunos.push(result);
+            }
+        
         return result;
-    };
-    CadastroDeAlunos.prototype.deletar = function (aluno) {
-        var result = this.alunos.find(function (a) { return a.cpf == aluno.cpf; });
+    }
+    deletar(aluno) {
+        var result = this.alunos.find(a => a.cpf == aluno.cpf);
         if (result)
             this.alunos.splice(this.alunos.indexOf(result), 1);
         return result;
-    };
-    CadastroDeAlunos.prototype.gitNaoCadastrado = function (git) {
-        return !this.alunos.find(function (a) { return a.git == git; });
-    };
-    CadastroDeAlunos.prototype.cpfNaoCadastrado = function (cpf) {
-        return !this.alunos.find(function (a) { return a.cpf == cpf; });
-    };
-    CadastroDeAlunos.prototype.atualizar = function (aluno) {
-        var result = this.alunos.find(function (a) { return a.cpf == aluno.cpf; });
+    }
+    gitNaoCadastrado(git) {
+        return !this.alunos.find(a => a.git == git);
+    }
+    cpfNaoCadastrado(cpf) {
+        return !this.alunos.find(a => a.cpf == cpf);
+    }
+    atualizar(aluno) {
+        var result = this.alunos.find(a => a.cpf == aluno.cpf);
         if (result)
             result.copyFrom(aluno);
         return result;
-    };
-    CadastroDeAlunos.prototype.getAlunos = function () {
+    }
+    getAlunos() {
         return this.alunos;
-    };
-    return CadastroDeAlunos;
-}());
+    }
+}
 exports.CadastroDeAlunos = CadastroDeAlunos;
+//# sourceMappingURL=cadastrodealunos.js.map

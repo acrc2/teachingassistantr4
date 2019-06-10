@@ -32,8 +32,12 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.$("input[name='cpfbox']").sendKeys(cpf);
         yield protractor_1.element(protractor_1.by.buttonText('Deletar')).click();
     }));
-    Then(/^I cannot see "([^\"]*)" with CPF "(\d*)" in the students list$/, (name, cpf) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I cannot see "([^\"]*)" with CPF "(\d*)" in the students list anymore$/, (name, cpf) => __awaiter(this, void 0, void 0, function* () {
         var allalunos = protractor_1.element.all(protractor_1.by.name('alunolist'));
         allalunos.filter(elem => pAND(sameCPF(elem, cpf), sameName(elem, name))).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
+    }));
+    Then(/^I can see "([^\"]*)" with CPF "(\d*)" in the students list$/, (name, cpf) => __awaiter(this, void 0, void 0, function* () {
+        var allalunos = protractor_1.element.all(protractor_1.by.name('alunolist'));
+        allalunos.filter(elem => pAND(sameCPF(elem, cpf), sameName(elem, name))).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
 });
